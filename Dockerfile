@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the Flask application code into the container
-COPY app.py /app
+COPY . .
 
 # Install required dependencies
 RUN pip install Flask
