@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import base64
 
 app = Flask(__name__)
 
@@ -8,16 +9,19 @@ def hello_geek():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
+    data = request.json
+
+    if 'file' not in data:
         return jsonify({'error': 'No file part in the request'}), 400
 
-    file = request.files['file']
+    file_data = data['file']
 
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+    # Decode the Base64 encoded file content
+    file_content = base64.b64decode(file_data)
 
     # Save the file to a desired location (e.g., 'uploads/' directory)
-    file.save('uploads/' + file.filename)
+    with open('uploads/uploaded_file.pdf', 'wb') as f:
+        f.write(file_content)
 
     return jsonify({'message': 'File uploaded successfully'}), 200
 
