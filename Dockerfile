@@ -14,4 +14,4 @@ RUN pip install Flask
 EXPOSE 5000
 
 # Start the Flask app when the container starts
-CMD ["python", "app.py"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

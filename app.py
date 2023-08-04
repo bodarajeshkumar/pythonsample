@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+@app.route('/')
+def hello_geek():
+    return '<h1>Hello from Flask & Docker</h2>'
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
