@@ -10,7 +10,7 @@ COPY . .
 # Install required dependencies
 RUN pip install Flask
 
-RUN chmod -R 777 /uploads
+RUN chmod -R 777 ./uploads
 
 # Expose the port that the Flask app will be running on
 EXPOSE 5000
