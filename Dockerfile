@@ -9,6 +9,7 @@ COPY . .
 
 # Install required dependencies
 RUN pip install Flask
+RUN pip install PyPDF2
 
 RUN chmod -R 777 ./uploads
 

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import base64
+import PyPDF2
 
 app = Flask(__name__)
 
@@ -22,8 +23,25 @@ def upload_file():
     # Save the file to a desired location (e.g., 'uploads/' directory)
     with open('uploads/uploaded_file.pdf', 'wb') as f:
         f.write(file_content)
+    
+    pdf_file_path = "uploads/uploaded_file.pdf"
+    extracted_text = extract_text_from_pdf(pdf_file_path)
+    print(extracted_text)
 
-    return jsonify({'message': 'File uploaded successfully'}), 200
+    return jsonify({'message': extracted_text}), 200
+
+def extract_text_from_pdf(pdf_path):
+    text = ""
+
+    with open(pdf_path, 'rb') as file:
+        pdf_reader = PyPDF2.PdfFileReader(file)
+        num_pages = pdf_reader.numPages
+
+        for page_num in range(num_pages):
+            page = pdf_reader.getPage(page_num)
+            text += page.extract_text()
+
+    return text
 
 if __name__ == '__main__':
     app.run(debug=True)
