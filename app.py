@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_geek():
-    return '<h1>Hello from Flask & Docker</h2>'
+    return jsonify({'output':{'message': "This is for testing"}}), 200
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -30,7 +30,7 @@ def upload_file():
     extracted_text = extract_text_from_pdf(pdf_file_path)
     print(extracted_text)
 
-    return jsonify({'message': extracted_text}), 200
+    return jsonify({'output':{'message': extracted_text}}), 200
 
 
 def extract_text_from_pdf(pdf_path):
