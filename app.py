@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import base64
-import PyPDF2
+import io
+import pdfminer
+from pdfminer.high_level import extract_text
 
 app = Flask(__name__)
 
@@ -30,16 +32,10 @@ def upload_file():
 
     return jsonify({'message': extracted_text}), 200
 
+
 def extract_text_from_pdf(pdf_path):
-    text = ""
-
     with open(pdf_path, 'rb') as file:
-        pdf_reader = PyPDF2.PdfFileReader(file)
-        num_pages = pdf_reader.numPages
-
-        for page_num in range(num_pages):
-            page = pdf_reader.getPage(page_num)
-            text += page.extract_text()
+        text = extract_text(file)
 
     return text
 

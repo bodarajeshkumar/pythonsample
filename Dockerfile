@@ -9,7 +9,7 @@ COPY . .
 
 # Install required dependencies
 RUN pip install Flask
-RUN pip install PyPDF2
+RUN pip install pdfminer.six
 
 RUN chmod -R 777 ./uploads
 
